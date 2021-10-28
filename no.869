@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool reorderedPowerOf2(int n) {
+        string s1=to_string(n);
+        int l = s1.length();
+        sort(s1.begin(),s1.end());
+        int N=1;
+        //将所得与所有的2的幂数作比较
+        for(int i=0;i<30;++i){
+            string s2=to_string(N);
+            sort(s2.begin(),s2.end());
+            if(s1==s2)  return true;
+            N<<=1;
+        }
+        return false;
+    }
+};
