@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isSelfCrossing(vector<int>& distance) {
+        int len = distance.size();
+        if(len < 4) return false;
+        for(int i=3; i<len; ++i){
+            //四条边围成的相交情况
+            if(i>=3 && distance.at(i)>=distance.at(i-2) && distance.at(i-3)>=distance.at(i-1)) return true;
+            //五条边围成的相交情况
+            if(i>=4 && distance.at(i) + distance.at(i-4) >= distance.at(i-2) && distance.at(i-1) == distance.at(i-3) 
+                && distance.at(i-2) >= distance.at(i-4) && distance.at(i-2) >= distance.at(i))
+                return true;
+            //六条边围成的相交情况
+            if(i>=5 && distance.at(i) + distance.at(i-4) >= distance.at(i-2) && distance.at(i-1) + distance.at(i-5) >= distance.at(i-3)
+                && distance.at(i-2) > distance.at(i-4) && distance.at(i-3) > distance.at(i-1))
+                return true;
+        }
+        return false;
+    }
+};
