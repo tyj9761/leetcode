@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int distributeCandies(vector<int>& candyType) {
+        map<int,int> kind;
+        int len = candyType.size();
+        for(int i=0; i < len; i++){
+            kind[candyType[i]]++;
+        }
+        if(kind.size()>candyType.size()/2) return candyType.size()/2;
+        else return kind.size();
+    }
+};
