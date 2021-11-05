@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int longestSubsequence(vector<int>& arr, int difference) {
+        unordered_map<int,int> mp;
+        int res=1;
+        for(int& i:arr){
+            int pre=i-difference;//当前元素作为等差数列最后一个元素时，前一个元素的值
+            if(mp.count(pre)){
+                 mp[i]=max(mp[i],mp[pre]+1);
+                 res=max(res,mp[i]);//更新可能的最大值
+            }
+            else{
+                 mp[i]=max(mp[i],1);
+            }
+        }
+        return res;
+    }
+};
