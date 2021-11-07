@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int maxCount(int m, int n, vector<vector<int>>& ops) {
+        int minx = m;
+        int miny = n;
+        //求相交的最小区域
+        for(const auto & op:ops){
+            minx = min(minx,op[0]);
+            miny = min(miny,op[1]);
+        }
+        return minx*miny;
+    }
+};
