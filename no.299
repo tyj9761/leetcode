@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int len = secret.length();
+        int secBut[10]={0},gusBut[10]={0};
+        int a = 0, b = 0;
+        for(int i=0; i<len; i++){
+            secBut[secret[i]-'0']++;
+            gusBut[guess[i]-'0']++;
+            if(guess[i] == secret[i]) a++;
+        }
+        for(int j=0; j<10; j++){
+            if(secBut[j] && gusBut[j])
+                b += secBut[j] < gusBut[j] ?  secBut[j] : gusBut[j];
+        }
+        b -= a;
+        return to_string(a) + 'A' + to_string(b) + 'B';
+    }
+};
