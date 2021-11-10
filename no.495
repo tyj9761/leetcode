@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findPoisonedDuration(vector<int>& timeSeries, int duration) {
+        int tag = 0;
+        int poisonetime = 0;
+        for(int i=0; i<timeSeries.size(); i++){
+            if(timeSeries[i] >= tag)
+                poisonetime += duration;
+            else 
+                poisonetime += timeSeries[i] + duration - tag;
+            tag = timeSeries[i] + duration;
+        }
+        return poisonetime;
+    }
+};
