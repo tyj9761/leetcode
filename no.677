@@ -1,0 +1,19 @@
+class MapSum {
+    map<string, int> Map;
+public:
+    void insert(string key, int val) {
+        Map[key]=val;
+    }
+    
+    int sum(string prefix) {
+        int res = 0;
+        for (auto & [key,val] : Map) {
+            //直接将map中与prefix等长的部分比较
+            if (key.substr(0, prefix.size()) == prefix) {
+                res += val;
+            }
+        }
+        return res;
+    }
+
+};
