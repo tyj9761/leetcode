@@ -1,0 +1,56 @@
+class Solution
+{
+public:
+    class point
+    {
+    public:
+        int x{0};
+        int y{0};
+        point(int x_,int y_):x{x_},y{y_} {}
+        point()=default;
+        bool operator==(const point& p)
+        {
+            return this->x==p.x&&this->y==p.y;
+        }
+    };//重载
+    bool isRectangleCover(vector<vector<int>>& rectangles)
+    {
+        map<pair<int,int>,int> memo;
+        int total_s=0;
+        point p[4];
+        p[0].x=INT_MAX;
+        p[0].y=INT_MAX;
+        p[1].x=INT_MAX;
+        p[1].y=INT_MIN;
+        p[2].x=INT_MIN;
+        p[2].y=INT_MIN;
+        p[3].x=INT_MIN;
+        p[3].y=INT_MAX;
+        for(int i=0; i<rectangles.size(); i++)
+        {
+            total_s+=(rectangles[i][2]-rectangles[i][0])*(rectangles[i][3]-rectangles[i][1]);
+            point pos[4];
+            pos[0]=point(rectangles[i][0],rectangles[i][1]);
+            pos[1]=point(rectangles[i][0],rectangles[i][3]);
+            pos[2]=point(rectangles[i][2],rectangles[i][3]);
+            pos[3]=point(rectangles[i][2],rectangles[i][1]);//得到四个点的位置
+            for(int j=0; j<4; j++)
+            {
+                if(memo.find({pos[j].x,pos[j].y})!=memo.end())
+                    memo.erase({pos[j].x,pos[j].y});
+                else memo[ {pos[j].x,pos[j].y}]=1;
+            }
+            p[0]=pos[0].x<=p[0].x&&pos[0].y<=p[0].y?pos[0]:p[0];
+            p[1]=pos[1].x<=p[1].x&&pos[1].y>=p[1].y?pos[1]:p[1];
+            p[2]=pos[2].x>=p[2].x&&pos[2].y>=p[2].y?pos[2]:p[2];
+            p[3]=pos[3].x>=p[3].x&&pos[3].y<=p[3].y?pos[3]:p[3];
+        }
+        int real_s=(p[1].y-p[0].y)*(p[2].x-p[1].x);
+        if(real_s!=total_s) return false;
+        if(memo.size()!=4) return false;
+        for(int i=0; i<memo.size(); i++)
+            if(memo.find({p[i].x,p[i].y})==memo.end())
+                return false;
+        return true;
+    }
+};
